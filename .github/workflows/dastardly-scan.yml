@@ -17,7 +17,7 @@ jobs:
 
       - name: Run Dastardly scan
         run: |
-          docker run --rm -v ${{ github.workspace }}:/zap/wrk:rw -t public.ecr.aws/portswigger/dastardly:latest dastardly https://prosect.com.br -o dastardly_scan_report.xml
+          docker run --rm -v ${{ github.workspace }}:/zap/wrk:rw -e BURP_START_URL=https://prosect.com.br -e BURP_REPORT_FILE_PATH=/zap/wrk/dastardly_scan_report.xml -t public.ecr.aws/portswigger/dastardly:latest
 
       - name: Upload scan results
         uses: actions/upload-artifact@v2
