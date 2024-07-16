@@ -16,9 +16,8 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run Dastardly scan
-        uses: PortSwigger/dastardly-github-action@v0.2.0 # Atualize para a versão correta
-        with:
-          target-url: 'https://prosect.com.br'
+        run: |
+          docker run --rm -v ${{ github.workspace }}:/zap/wrk:rw -t public.ecr.aws/portswigger/dastardly:latest dastardly https://prosect.com.br -o dastardly_scan_report.xml
 
       - name: Upload scan results
         uses: actions/upload-artifact@v2
