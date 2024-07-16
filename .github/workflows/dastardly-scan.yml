@@ -1,0 +1,27 @@
+name: Dastardly Scan
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  dastardly-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run Dastardly scan
+        uses: PortSwigger/dastardly-github-action@v1
+        with:
+          target-url: 'https://prosect.com.br' 
+
+      - name: Upload scan results
+        uses: actions/upload-artifact@v2
+        with:
+          name: dastardly-scan-results
+          path: dastardly_scan_report.xml
